@@ -16,6 +16,9 @@ class ProductPageLocators():
     
     BASKET_VALUE = (By.CSS_SELECTOR, "#messages > :nth-child(3) strong")
     PRICE_OF_GOODS = (By.CSS_SELECTOR, "p.price_color")
-    
+
+class BasePageLocators():
+    LOGIN_LINK = (By.CSS_SELECTOR, "#login_link")
+    LOGIN_LINK_INVALID = (By.CSS_SELECTOR, "#login_link_inc")
 
     

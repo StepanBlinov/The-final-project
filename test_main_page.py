@@ -3,7 +3,7 @@ from pages.login_page import LoginPage
 
 
 
-#Переходим на страницу логина
+#Переходим на страницу логина и проверка форм
 def test_guest_can_go_to_login_page(browser):
     link = "http://selenium1py.pythonanywhere.com/"
     page = MainPage(browser, link)  # инициализируем Page Object, передаем в конструктор экземпляр драйвера и url адрес

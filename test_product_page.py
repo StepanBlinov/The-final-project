@@ -15,6 +15,7 @@ from pages.product_page import ProductPage
                                   "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer8",
                                   "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer9"])
 
+#тест на добавление товара в корзину
 def test_guest_can_add_product_to_basket(browser,link):
     link = link
     page = ProductPage(browser, link)  # инициализируем Page Object, передаем в конструктор экземпляр драйвера и url адрес
@@ -23,3 +24,18 @@ def test_guest_can_add_product_to_basket(browser,link):
     Product_page = ProductPage(browser, browser.current_url)#передаем актуальный url в браузер
     Product_page.compare_the_name()#сравниваем имя товара в корзине с именем товара, который доавляли
     Product_page.with_price_comparison()#сравниваем цену товара в корщине с ценой, товара который добавляли
+
+#тест на проверку ссылки логина на странице
+def test_guest_should_see_login_link_on_product_page(browser):
+    link = "http://selenium1py.pythonanywhere.com/en-gb/catalogue/the-city-and-the-stars_95/"
+    page = ProductPage(browser, link)
+    page.open()
+    page.should_be_login_link()
+
+#тест на проверку перехода на страницу логина
+def test_guest_can_go_to_login_page_from_product_page(browser):
+    link = "http://selenium1py.pythonanywhere.com/en-gb/catalogue/the-city-and-the-stars_95/"
+    page = ProductPage(browser, link)
+    page.open()
+    page.go_to_login_page()
+
