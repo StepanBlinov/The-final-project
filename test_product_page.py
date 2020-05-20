@@ -1,5 +1,6 @@
 import pytest
 from pages.product_page import ProductPage
+from pages.basket_page import BasketPage
 
 
 #параметризация, проверяем несоколько страниц промоакций на налчие бага
@@ -38,4 +39,40 @@ def test_guest_can_go_to_login_page_from_product_page(browser):
     page = ProductPage(browser, link)
     page.open()
     page.go_to_login_page()
+
+#добавляем товар в корзину , проверям повяится ли там элимент
+@pytest.mark.xfail(reason="fixing this bug right now")
+def test_guest_cant_see_success_message_after_adding_product_to_basket(browser):
+    link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/"
+    page = ProductPage(browser, link)
+    page.open()#Открываем страницу товара
+    page.adding_an_item_to_the_cart()#добавляем товар в корзину
+    page.should_not_be_success_message()#Проверяем, что нет сообщения об успехе с помощью is_not_element_present
+
+#открываем страницу товара, проверяем появится ли там элемент
+def test_guest_cant_see_success_message(browser):
+    link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/"
+    page = ProductPage(browser, link)
+    page.open()#Открываем страницу товара
+    page.should_not_be_success_message()#Проверяем, что нет сообщения об успехе с помощью is_not_element_present
+
+#добавляем товар в корзину, проверям исчезнет ли элимент элимент
+@pytest.mark.xfail(reason="fixing this bug right now")
+def test_message_disappeared_after_adding_product_to_basket(browser):
+    link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/"
+    page = ProductPage(browser, link)
+    page.open()#Открываем страницу товара
+    page.adding_an_item_to_the_cart()#добавляем товар в корзину
+    page.the_element_should_disappear()#Проверяем, что нет сообщения об успехе с помощью is_disappeared
+
+#переходим в корзину со станицы товара и выполняем проверки
+def test_guest_cant_see_product_in_basket_opened_from_product_page(browser):
+    link = "http://selenium1py.pythonanywhere.com/ru/catalogue/the-shellcoders-handbook_209/"
+    page = ProductPage(browser, link)
+    page.open()
+    page.go_to_basket_page()#переходим в корзину
+    basket_page = BasketPage(browser, browser.current_url)
+    basket_page.search_in_the_basket() #проверяем, что в корзине нет товара
+    basket_page.the_basket_is_empty()#проверяем, что есть текст о том что корзина пуста
+
 

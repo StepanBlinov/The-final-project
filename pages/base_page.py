@@ -8,7 +8,6 @@ from selenium.webdriver.support import expected_conditions as EC
 from pages.locators import BasePageLocators
 
 
-
 class BasePage():
     #получаем браузер и ссылку
     def __init__(self, browser, url, timeout=10):
@@ -20,6 +19,12 @@ class BasePage():
     def open(self):
         self.browser.get(self.url)
 
+    #перейти на страницу корзины
+    def go_to_basket_page(self):
+        assert self.is_element_present(*BasePageLocators.BASKET_LINK), "Backet link is not presented"
+        link = self.browser.find_element(*BasePageLocators.BASKET_LINK)
+        link.click()
+
     #перейти на страницу логина
     def go_to_login_page(self):
         assert self.is_element_present(*BasePageLocators.LOGIN_LINK), "Login link is not presented"
@@ -30,7 +35,7 @@ class BasePage():
     def should_be_login_link(self):
         assert self.is_element_present(*BasePageLocators.LOGIN_LINK), "Login link is not presented"
 
-    #ищем есть ли локатор на странице
+    #ищем есть ли элемент на странице
     def is_element_present(self, how, what):
         try:
             self.browser.find_element(how, what)
@@ -38,7 +43,7 @@ class BasePage():
             return False
         return True
     
-    #сравнение двух элементов
+    #сравнить два элемента
     def compare_items(self, how, what,how_two, what_two):
         first = self.browser.find_element(how, what).text
         second = self.browser.find_element(how_two, what_two).text

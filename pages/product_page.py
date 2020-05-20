@@ -17,7 +17,6 @@ class ProductPage(BasePage):
         assert self.compare_items(*ProductPageLocators.BASKET_VALUE,
                                   *ProductPageLocators.PRICE_OF_GOODS), "The price doesn't match"
 
-class ProductPageMissingEl(BasePage):
     def adding_an_item_to_the_cart(self):
         basket_link = self.browser.find_element(*ProductPageLocators.BASKET_FORM)
         basket_link.click()
